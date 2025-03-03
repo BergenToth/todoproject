@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { useState } from 'react'
-import { TodoForm } from './Components/TodoForm'
-import { TodoList } from './Components/TodoList'
 import Home from './Pages/Home'
 import Contact from './Pages/Contact'
+import Layout from './Pages/Layout'
+import NoPage from './Pages/NoPage'
 
 export default function App() {
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   function addTodo(title) {
     setTodos(currentTodos => {
@@ -31,20 +32,35 @@ export default function App() {
       return currentTodos.filter(todo => todo.id !== id)
     })
   }
+
+  const filterTodos = todos.filter(todo => {
+    if (filter === 'all') return true;
+    if (filter === 'completed') return todo.completed;
+    if (filter === 'active') return!todo.completed;
+    return true;
+  })
   
   return (
-    <Router>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/contact">Contact</Link>
-      </nav>
-
+<Router>
       <Routes>
-        <Route path="/" element={
-          <Home todos={todos} addTodo={addTodo} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
-        } />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<Layout />}>
+          <Route
+            index
+            element={
+              <Home
+                todos={filterTodos}
+                addTodo={addTodo}
+                toggleTodo={toggleTodo}
+                deleteTodo={deleteTodo}
+                setFilter={setFilter}
+              />
+            }
+          />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>
   );
 }
+
