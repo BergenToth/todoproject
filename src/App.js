@@ -1,6 +1,10 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { TodoForm } from './Components/TodoForm'
 import { TodoList } from './Components/TodoList'
+import Home from './Pages/Home'
+import Contact from './Pages/Contact'
+
 export default function App() {
   const [todos, setTodos] = useState([])
 
@@ -29,10 +33,18 @@ export default function App() {
   }
   
   return (
-    <>
-    <TodoForm addTodo={addTodo}/>
-    <h1 className="header">Todo List</h1>
-    <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo}/>
-    </>
+    <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/contact">Contact</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={
+          <Home todos={todos} addTodo={addTodo} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
+        } />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
   );
 }
