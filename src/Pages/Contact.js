@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../Pages/Contact.css'
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -73,3 +74,4 @@ function Contact() {
 }
 
 export default Contact;
+

@@ -4,6 +4,7 @@ import Home from './Pages/Home'
 import Contact from './Pages/Contact'
 import Layout from './Pages/Layout'
 import NoPage from './Pages/NoPage'
+import './App.css'
 
 export default function App() {
   const [todos, setTodos] = useState([]);
@@ -20,18 +21,33 @@ export default function App() {
   }
 
   function toggleTodo(id, completed) {
-    setTodos(currentTodos =>
-      currentTodos.map(todo =>
-        todo.id === id ? { ...todo, completed } : todo
-      )
-    );
+    setTodos(currentTodos => {
+      return currentTodos.map(todo => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: completed
+          };
+        } else {
+          return todo;
+        }
+      });
+    });
   }
+  
 
   function deleteTodo(id) {
     setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== id)
-    })
+      return currentTodos.filter(todo => {
+        if (todo.id !== id) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    });
   }
+  
 
   const filterTodos = todos.filter(todo => {
     if (filter === 'all') return true;
