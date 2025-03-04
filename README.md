@@ -3,7 +3,7 @@ Todo Task Manager w/ Contact Form
 
 This web application will allow users to type in a task they want to set for themselves and add it to their list of todos. They can alos mark them completed and remove todos, including an option to filter out all, completed, and active todos. Users can also naviagte to the contact page through the nav bar to fill out a contact form. 
 
-Tech used; CSS, React, Javascript, JSX.
+Tech used; CSS, HTML, Javascript.
 
 User Stories. 
 
